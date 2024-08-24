@@ -1,10 +1,10 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import Create from './Create'
+import Create from './create/Create'
 const Home = () => {
   return (
   <>
-  <Navbar/>
+
   <Create/>
 <div>
 
