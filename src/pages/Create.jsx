@@ -46,7 +46,6 @@ const Create = () => {
     else if (!emailPattern.test(formData.email)) newErrors.email = 'Email must be in the format name@example.com';
     if (!formData.phoneNumber) newErrors.phoneNumber = 'Phone number is required';
     else if (!phonePattern.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone number must be at least 7 digits';
-    if (formData.profilePicture && formData.profilePicture.type !== 'image/png') newErrors.profilePicture = 'Only PNG files are allowed';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -68,7 +67,7 @@ const Create = () => {
     const personToEdit = peopleList.find(person => person.id === id);
   
     if (personToEdit) {
-      // Set form data with the selected person's data
+      // Set form data with the selecteifd person's data
       setFormData({
         ...personToEdit,
         profilePicture: null, // Clear profile picture for editing (if needed)
@@ -118,7 +117,7 @@ const Create = () => {
       district: '',
       province: '1',
       country: 'Nepal',
-      profilePicture: null,
+     
     });
 
     // Clear errors
@@ -245,16 +244,7 @@ const Create = () => {
                 </select>
               </div>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Profile Picture:</label>
-              <input
-                type="file"
-                name="profilePicture"
-                onChange={handleFileChange}
-                className={`shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.profilePicture ? 'border-red-500' : ''}`}
-              />
-              {errors.profilePicture && <p className="text-red-500 text-sm mt-1">{errors.profilePicture}</p>}
-            </div>
+        
             <div className="flex items-center justify-center">
               <button className="bg-green-600 h-9 rounded text-white" type="submit">
                 {formData.id ? 'Update' : 'Submit'}

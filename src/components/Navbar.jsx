@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  useEffect(() => {
+    // Retrieve the profile picture from localStorage
+    const storedProfilePicture = localStorage.getItem('profilePicture');
+    if (storedProfilePicture) {
+      setProfilePicture(storedProfilePicture);
+    }
+  }, []);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
-    <nav className="bg-[#BDE8CA] border-gray-200 ">
+    <nav className="bg-[#BDE8CA] border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a className="flex items-center space-x-3 rtl:space-x-reverse">
-                </a>
+        <a className="flex items-center space-x-3 rtl:space-x-reverse"></a>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
@@ -24,22 +32,22 @@ const Navbar = () => {
             <span className="sr-only">Open user menu</span>
             <img
               className="w-8 h-8 rounded-full"
-              src="/docs/images/people/profile-picture-3.jpg"
+              src={profilePicture || '/docs/images/people/profile-picture-3.jpg'}
               alt="user photo"
             />
-            <span className="text-white ml-2">User</span>
+            <span className="text-white "></span>
           </button>
 
           {isDropdownOpen && (
             <ul
-              className="absolute right-0 mt-12 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className="absolute right-0 mt-12 w-48 bg-white rounded-md shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="user-menu-button"
             >
               <li>
                 <Link
-                  to='/Profile'
+                  to="/Profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                 >
@@ -51,7 +59,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to='/'
+                  to="/"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                 >
@@ -62,18 +70,16 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+        <div
+          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-user"
+        >
           <ul className="">
             <li>
-              <a
-                href="#"
-                className="text-black "
-                aria-current="page"
-              >
+              <a href="#" className="text-black " aria-current="page">
                 Login
               </a>
             </li>
-            
           </ul>
         </div>
       </div>
