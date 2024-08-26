@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ profilePicture }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -9,14 +9,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#BDE8CA] border-gray-200 ">
+    <nav className="bg-[#BDE8CA] border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a className="flex items-center space-x-3 rtl:space-x-reverse">
-                </a>
+        </a>
         <div className="flex items-center md:order-2 space-x- md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
-            className="flex items-center text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            className="flex items-center text-sm rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button"
             aria-expanded={isDropdownOpen}
             onClick={toggleDropdown}
@@ -24,10 +24,9 @@ const Navbar = () => {
             <span className="sr-only">Open user menu</span>
             <img
               className="w-8 h-8 rounded-full"
-              src="/docs/images/people/profile-picture-3.jpg"
+              src={profilePicture || '/docs/images/people/profile-picture-3.jpg'} 
               alt="user photo"
             />
-            <span className="text-white"></span>
           </button>
 
           {isDropdownOpen && (
@@ -61,7 +60,6 @@ const Navbar = () => {
             </ul>
           )}
         </div>
-
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const Create = () => {
@@ -14,7 +14,6 @@ const Create = () => {
     district: '',
     province: '1',
     country: 'Nepal',
-    profilePicture: null,
   });
   const [peopleList, setPeopleList] = useState([]);
   const [errors, setErrors] = useState({});
@@ -65,16 +64,8 @@ const Create = () => {
     if (personToEdit) {
       setFormData({
         ...personToEdit,
-        profilePicture: null,
       });
     }
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      profilePicture: e.target.files[0],
-    });
   };
 
   const handleSubmit = (e) => {
@@ -103,7 +94,6 @@ const Create = () => {
       district: '',
       province: '1',
       country: 'Nepal',
-      profilePicture: null,
     });
     setErrors({});
   };
@@ -130,10 +120,10 @@ const Create = () => {
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-blue-50 to-purple-100 py-12">
         <div className="w-full max-w-4xl p-8 bg-white shadow-lg rounded-lg mb-8 transition-all duration-300 hover:shadow-xl">
-          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Create or Edit Profile</h1>
+          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Create or Add Profile</h1>
+          
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <InputField label="Name" name="name" value={formData.name} onChange={handleChange} error={errors.name} />
             <InputField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} error={errors.email} />
@@ -143,17 +133,6 @@ const Create = () => {
             <InputField label="District" name="district" value={formData.district} onChange={handleChange} />
             <SelectField label="Province" name="province" value={formData.province} onChange={handleChange} options={[1, 2, 3, 4, 5, 6, 7]} />
             <SelectField label="Country" name="country" value={formData.country} onChange={handleChange} options={countries} />
-            <div className="col-span-2">
-              <label htmlFor="profilePicture" className="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
-              <input
-                id="profilePicture"
-                name="profilePicture"
-                type="file"
-                accept=".png"
-                onChange={handleFileChange}
-                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-              />
-            </div>
             <div className="col-span-2 flex items-center justify-center">
               <button
                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-md shadow-md hover:from-blue-600 hover:to-purple-700 transition duration-300 transform hover:scale-105"
@@ -165,10 +144,10 @@ const Create = () => {
           </form>
         </div>
 
-        <div className="w-full max-w-6xl p-8 bg-white shadow-lg rounded-lg">
+        <div className="w-full p-8 bg-white shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">List of Entries</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
+            <table className="w-full bg-white border border-gray-200">
               <thead className="bg-gray-100">
                 <tr>
                   <th className="py-3 px-4 text-left">Name</th>
@@ -184,7 +163,7 @@ const Create = () => {
               </thead>
               <tbody>
                 {currentRows.map((person) => (
-                  <tr key={person.id} className="border-b border-gray-200 hover:bg-gray-50">
+                  <tr key={person.id} className="border-b border-gray-200">
                     <td className="py-3 px-4">{person.name}</td>
                     <td className="py-3 px-4">{person.email}</td>
                     <td className="py-3 px-4">{person.phoneNumber}</td>
@@ -196,13 +175,13 @@ const Create = () => {
                     <td className="py-3 px-4 flex space-x-2">
                       <button
                         onClick={() => handleEdit(person.id)}
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-500 hover:underline"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(person.id)}
-                        className="text-red-600 hover:underline"
+                        className="text-red-500 hover:underline"
                       >
                         Delete
                       </button>
@@ -212,22 +191,35 @@ const Create = () => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-between mt-4">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <button
-              onClick={handleNextPage}
-              disabled={indexOfLastRow >= peopleList.length}
-              className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
+
+
+          <div className="flex justify-between mt-6">
+  <button
+    onClick={handlePrevPage}
+    className="px-4 py-2 rounded bg-green-500 rounded-l-md hover:bg-gray-300 focus:outline-none"
+    disabled={currentPage === 1}
+  >
+    Previous
+  </button>
+  <button
+    onClick={handleNextPage}
+    className="px-4 py-2 rounded bg-green-500 rounded-r-md hover:bg-gray-300 focus:outline-none"
+    disabled={indexOfLastRow >= peopleList.length}
+  >
+    Next
+  </button>
+</div>
+
+        </div>
+
+     
+        <div className=" max-w-6xl p-8 bg-white shadow-lg rounded-lg mt-8">
+          <button
+            onClick={() => navigate('/profile')}
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-md shadow-md hover:from-blue-600 hover:to-purple-700 transition duration-300 transform hover:scale-105"
+          >
+            Go to Profile
+          </button>
         </div>
       </div>
     </>
@@ -235,32 +227,40 @@ const Create = () => {
 };
 
 const InputField = ({ label, name, type = 'text', value, onChange, error }) => (
-  <div>
-    <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+  <div className="mb-4">
+    <label className="block text-gray-700 font-semibold mb-2" htmlFor={name}>
+      {label}
+    </label>
     <input
-      id={name}
-      name={name}
+      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ${
+        error ? 'border-red-500' : 'border-gray-300'
+      }`}
       type={type}
+      name={name}
+      id={name}
       value={value}
       onChange={onChange}
-      className="w-full border border-gray-300 rounded-md shadow-sm p-2"
     />
-    {error && <p className="text-red-500 text-sm">{error}</p>}
+    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
   </div>
 );
 
 const SelectField = ({ label, name, value, onChange, options }) => (
-  <div>
-    <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+  <div className="mb-4">
+    <label className="block text-gray-700 font-semibold mb-2" htmlFor={name}>
+      {label}
+    </label>
     <select
-      id={name}
+      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
       name={name}
+      id={name}
       value={value}
       onChange={onChange}
-      className="w-full border border-gray-300 rounded-md shadow-sm p-2"
     >
       {options.map((option, index) => (
-        <option key={index} value={option}>{option}</option>
+        <option key={index} value={option}>
+          {option}
+        </option>
       ))}
     </select>
   </div>
