@@ -1,4 +1,4 @@
-Click here to see result(https://sonangdembe.github.io/React_Crud_Assignment/)
+(Click here to see result)[https://sonangdembe.github.io/React_Crud_Assignment/]
 
 
 # React + Vite
